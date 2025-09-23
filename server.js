@@ -3,7 +3,7 @@ import testRouters from "./routes/testRoutes.js"
 
 const app = express()
 
-const port = 8080
+const port = process.env.PORT || 5000
 
 // dotenv.config();
 
