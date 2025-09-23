@@ -3,9 +3,13 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
 import testRoutes from "./routes/testRoutes.js";
+import connectDB  from "./config/db.js";
 
 //conig env var
 dotenv.config();
+
+// database
+connectDB();
 
 //rest object
 const app = express();
