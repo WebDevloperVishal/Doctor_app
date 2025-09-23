@@ -1,8 +1,8 @@
 import express from 'express'
 const app = express()
-const port = process.env.PORT
+const port = 8080
 
-dotenv.config();
+// dotenv.config();
 
 app.use(express.json())
 
@@ -13,4 +13,4 @@ app.post('/', (req, res) => {
     res.json({ success: true })
 })
 
-app.listen(port, () => console.log(`Server is running http://localhost:3000`))
+app.listen(port, () => console.log(`Server is running http://localhost:8080`))
