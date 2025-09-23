@@ -1,11 +1,12 @@
 import express from 'express'
+import dotenv from 'dotenv'
 import testRouters from "./routes/testRoutes.js"
+dotenv.config();
 
 const app = express()
 
 const port = process.env.PORT || 5000
 
-// dotenv.config();
 
 app.use('/api/v1/test', testRouters)
 
