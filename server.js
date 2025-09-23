@@ -7,7 +7,7 @@ const port = 8080
 
 // dotenv.config();
 
-app.use('/api/v1', testRouters)
+app.use('/api/v1/test', testRouters)
 
 app.use(express.json())
 
