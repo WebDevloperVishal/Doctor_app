@@ -2,7 +2,7 @@ import express from 'express'
 const app = express()
 const port = process.env.PORT
 
-
+dotenv.config();
 
 app.use(express.json())
 
