@@ -6,6 +6,5 @@ export const getTestController = (req,res)=>{
         });
     } catch (error) {
         console.log(error);
-        
     }
 }
