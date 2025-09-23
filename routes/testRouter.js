@@ -4,7 +4,7 @@ import { getTestController } from '../controllers/testController.js';
 // import all controllers
 // import SessionController from './app/controllers/SessionController';
 
-const routes = express.Router();
+const routes = express.Routes();
 
 // Add routes
 routes.get('/', getTestController);

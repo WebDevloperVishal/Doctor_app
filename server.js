@@ -1,8 +1,13 @@
 import express from 'express'
+import testRouters from "./routes/testRoutes.js"
+
 const app = express()
+
 const port = 8080
 
 // dotenv.config();
+
+app.use('/api/v1', testRouters)
 
 app.use(express.json())
 
