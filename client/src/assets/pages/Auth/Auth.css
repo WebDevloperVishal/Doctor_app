@@ -1,0 +1,42 @@
+.auth-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0px;
+    flex-direction: column;
+}
+
+.auth-container .card{
+    padding: 30px;
+    width: 400px;
+    border: 1px solid gray;
+    box-shadow: -10px 15px 5px lightgray;
+}
+
+.auth-container h2{
+    color: teal;
+    text-align: center;
+    font-family: cursive;
+}
+
+.auth-container p{
+    color: gray;
+    text-align: center;
+}
+
+.auth-container input{
+    border: 1px solid lightgray;
+    border-bottom: 2px solid teal;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    width: 340px;
+    padding: 5px 10px ;
+}
+
+.auth-container button{
+    margin-top: 20px;
+    border: none;
+    background-color: rgb(3, 171, 171 );
+}
