@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import testRoutes from "./routes/testRoutes.js";
 import connectDB  from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js";
 
 //conig env var
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(morgan("dev"));
 
 //routes
 app.use("/api/v1/test", testRoutes);
+app.use("/api/v1/user", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1> Node Server Running </h1>");
