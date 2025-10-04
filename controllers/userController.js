@@ -1,7 +1,6 @@
 import userModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
-
 // Register User 
 export const userRegister = async (req, res) => {
     try {
@@ -223,6 +222,42 @@ export const changePassword = async (req, res) => {
         res.status(200).send({
             success: true,
             message: "Password Changed Successfully"
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Something Went Wrong',
+            error
+        });
+    }
+}
+
+
+// Delete User
+export const deleteUser = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        
+        if(!userId){
+            return res.status(400).send({
+                success: false,
+                message: "User ID is required"
+            });
+        }
+        
+        const user = await userModel.findByIdAndDelete(userId);
+        
+        if(!user){
+            return res.status(404).send({
+                success: false,
+                message: "User Not Found"
+            });
+        }
+        
+        res.status(200).send({
+            success: true,
+            message: "User Deleted Successfully"
         });
     } catch (error) {
         console.log(error);

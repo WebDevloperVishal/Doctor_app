@@ -1,5 +1,5 @@
 import express from "express";
-import { userRegister, userLogin, getUserProfile , getAllUsers, getAllUsersinlimite,changePassword} from "../controllers/userController.js";
+import { userRegister, userLogin, getUserProfile , getAllUsers, getAllUsersinlimite, changePassword, deleteUser } from "../controllers/userController.js";
 
 // import all controllers
 // import SessionController from './app/controllers/SessionController';
@@ -14,6 +14,7 @@ router.get('/get-profile', getUserProfile); //Get user profile
 router.get('/get-user', getAllUsers); //Get all user
 router.get('/get-userinlimite', getAllUsersinlimite); //with the limite
 router.patch('/changePassword', changePassword);
+router.delete('/delete-user', deleteUser);
 // routes.put('/', SessionController.store);
 // routes.delete('/', SessionController.store);
 
