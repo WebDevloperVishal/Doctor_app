@@ -1,5 +1,5 @@
 import express from "express";
-import { userRegister, userLogin } from "../controllers/userController.js";
+import { userRegister, userLogin, getUserProfile } from "../controllers/userController.js";
 
 // import all controllers
 // import SessionController from './app/controllers/SessionController';
@@ -10,6 +10,7 @@ const router = express.Router();
 // routes.get('/', SessionController.store);
 router.post('/register', userRegister);
 router.post('/login', userLogin);
+router.get('/get-user', getUserProfile);
 // routes.put('/', SessionController.store);
 // routes.delete('/', SessionController.store);
 

@@ -81,3 +81,38 @@ export const userLogin = async (req, res) => {
         });
     }
 }
+
+export const getUserProfile = async (req, res) => {
+    try {
+        const { userId } = req.body; 
+        
+        if(!userId){
+            return res.status(400).send({
+                success: false,
+                message: "User ID is required"
+            });
+        }
+        
+        const user = await userModel.findById(userId).select('-password');
+        
+        if(!user){
+            return res.status(404).send({
+                success: false,
+                message: "User Not Found"
+            });
+        }
+        
+        res.status(200).send({
+            success: true,
+            message: "User Profile Fetched Successfully",
+            user
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Something Went Wrong',
+            error
+        });
+    }
+}
