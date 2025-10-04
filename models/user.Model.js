@@ -20,4 +20,8 @@ const userSchema = new mongoose.Schema({
     dob: { type: String },
     gender: { type: String },
     isAdmin: { type: Boolean, default: false }
-}, { timestamps: true })
+}, { timestamps: true });
+
+const userModel = mongoose.model('user',userSchema)
+
+export default userModel;
