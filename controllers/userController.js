@@ -1,6 +1,8 @@
 import userModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
+
+// Register User 
 export const userRegister = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -37,6 +39,8 @@ export const userRegister = async (req, res) => {
     }
 }
 
+
+// Login User
 export const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -82,6 +86,8 @@ export const userLogin = async (req, res) => {
     }
 }
 
+
+// Get User
 export const getUserProfile = async (req, res) => {
     try {
         const { userId } = req.body; 
