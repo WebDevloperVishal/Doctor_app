@@ -10,7 +10,6 @@ export const userAuth = async (req, res, next) => {
             })
         }
 
-
         const decode = JWT.verify(token, process.env.JWT_SECRET)
         res.user = decode;
         next();
@@ -27,22 +26,22 @@ export const userAuth = async (req, res, next) => {
 // Admon Auth
 export const isAdmin = async (req, res, next) => {
     try {
-     const user = await userModel.findById(req.user.id)
-     if(user.isAdmin === !true){
-        return res.status(402).send({
-            success:false,
-            message: "Unatuhorized Access"
-        })
-     } else {
-        next();
-     }
+        const user = await userModel.findById(req.user.id)
+        if (user.isAdmin === !true) {
+            return res.status(402).send({
+                success: false,
+                message: "Unatuhorized Access"
+            })
+        } else {
+            next();
+        }
     } catch (error) {
-       console.log(error),
-       res.status(402).send({
-        success:false,
-        message:"Error in Admin Auth",
-        error
-       })
-        
+        console.log(error),
+            res.status(402).send({
+                success: false,
+                message: "Error in Admin Auth",
+                error
+            })
+
     }
 }
