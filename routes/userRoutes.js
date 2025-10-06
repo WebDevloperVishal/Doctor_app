@@ -7,9 +7,13 @@ import { userRegister, userLogin, getUserProfile , getAllUsers, getAllUsersinlim
 const router = express.Router();
 
 // Add routes
-// routes.get('/', SessionController.store);
+
+// register //POST
 router.post('/register', userRegister);
+
+// Login //POST
 router.post('/login', userLogin);
+
 router.get('/get-profile', getUserProfile); //Get user profile
 router.get('/get-user', getAllUsers); //Get all user
 router.get('/get-userinlimite', getAllUsersinlimite); //with the limite
