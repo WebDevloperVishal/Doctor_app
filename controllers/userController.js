@@ -42,7 +42,7 @@ export const userRegister = async (req, res) => {
 
 // Login User
 
-export const userLogin = async (req, res) => {
+export const userLogin = async(req, res) => {
     try {
         const { email, password } = req.body
         if (!email || !password) {
@@ -61,19 +61,22 @@ export const userLogin = async (req, res) => {
         }
 
         // matchh Password
-        const isMatch = await bcrypt.compare(password.user?.password)
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(402).send({
                 success: false,
-                message: "Something Went Wrong",
-                message
+                message: "invalid Credential",
             })
 
         }
+
+        // token 
+        const token = JWT.sign({id:user?.id}, process.env.JWT_SECRET, {expiresIn:'7d'})
         user.password = undefined;
         res.status(200).send({
             success: true,
             message: "login Successfully",
+            token,
             user
         })
 
