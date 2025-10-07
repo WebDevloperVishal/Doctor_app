@@ -90,185 +90,187 @@ export const userLogin = async(req, res) => {
     }
 }
 
+
+
 // Get User
-export const getUserProfile = async (req, res) => {
-    try {
-        const { userId } = req.body;
+// export const getUserProfile = async (req, res) => {
+//     try {
+//         const { userId } = req.body;
 
-        if (!userId) {
-            return res.status(400).send({
-                success: false,
-                message: "User ID is required"
-            });
-        }
+//         if (!userId) {
+//             return res.status(400).send({
+//                 success: false,
+//                 message: "User ID is required"
+//             });
+//         }
 
-        const user = await userModel.findById(userId).select('-password');
+//         const user = await userModel.findById(userId).select('-password');
 
-        if (!user) {
-            return res.status(404).send({
-                success: false,
-                message: "User Not Found"
-            });
-        }
+//         if (!user) {
+//             return res.status(404).send({
+//                 success: false,
+//                 message: "User Not Found"
+//             });
+//         }
 
-        res.status(200).send({
-            success: true,
-            message: "User Profile Fetched Successfully",
-            user
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: 'Something Went Wrong',
-            error
-        });
-    }
-}
+//         res.status(200).send({
+//             success: true,
+//             message: "User Profile Fetched Successfully",
+//             user
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({
+//             success: false,
+//             message: 'Something Went Wrong',
+//             error
+//         });
+//     }
+// }
 
-// Get Alluser without limite
-export const getAllUsers = async (req, res) => {
-    try {
-        const users = await userModel.find({}).select('-password');
+// // Get Alluser without limite
+// export const getAllUsers = async (req, res) => {
+//     try {
+//         const users = await userModel.find({}).select('-password');
 
-        // Validation
-        if (!users || users.length === 0) {
-            return res.status(404).send({
-                success: false,
-                message: "No Users Found"
-            });
-        }
+//         // Validation
+//         if (!users || users.length === 0) {
+//             return res.status(404).send({
+//                 success: false,
+//                 message: "No Users Found"
+//             });
+//         }
 
-        res.status(200).send({
-            success: true,
-            message: "All Users Fetched Successfully",
-            count: users.length,
-            users
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: 'Something Went Wrong',
-            error
-        });
-    }
-}
-
-
-// Get allUser with limit of 2 User at a time
-export const getAllUsersinlimite = async (req, res) => {
-    try {
-        const users = await userModel.find({}).select('-password').limit(2);
-
-        // Validation
-        if (!users || users.length === 0) {
-            return res.status(404).send({
-                success: false,
-                message: "No Users Found"
-            });
-        }
-
-        res.status(200).send({
-            success: true,
-            message: "All Users Fetched Successfully",
-            count: users.length,
-            users
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: 'Something Went Wrong',
-            error
-        });
-    }
-}
+//         res.status(200).send({
+//             success: true,
+//             message: "All Users Fetched Successfully",
+//             count: users.length,
+//             users
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({
+//             success: false,
+//             message: 'Something Went Wrong',
+//             error
+//         });
+//     }
+// }
 
 
-// Change Password
-export const changePassword = async (req, res) => {
-    try {
-        const { userId, oldPassword, newPassword } = req.body;
+// // Get allUser with limit of 2 User at a time
+// export const getAllUsersinlimite = async (req, res) => {
+//     try {
+//         const users = await userModel.find({}).select('-password').limit(2);
 
-        if (!userId || !oldPassword || !newPassword) {
-            return res.status(400).send({
-                success: false,
-                message: "Provide All Fields"
-            });
-        }
+//         // Validation
+//         if (!users || users.length === 0) {
+//             return res.status(404).send({
+//                 success: false,
+//                 message: "No Users Found"
+//             });
+//         }
 
-        const user = await userModel.findById(userId);
-
-        if (!user) {
-            return res.status(404).send({
-                success: false,
-                message: "User Not Found"
-            });
-        }
-
-        // verify old password
-        const isMatch = await bcrypt.compare(oldPassword, user.password);
-        if (!isMatch) {
-            return res.status(401).send({
-                success: false,
-                message: "Old Password is Incorrect"
-            });
-        }
-
-        // hash new password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(newPassword, salt);
-
-        user.password = hashedPassword;
-        await user.save();
-
-        res.status(200).send({
-            success: true,
-            message: "Password Changed Successfully"
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: 'Something Went Wrong',
-            error
-        });
-    }
-}
+//         res.status(200).send({
+//             success: true,
+//             message: "All Users Fetched Successfully",
+//             count: users.length,
+//             users
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({
+//             success: false,
+//             message: 'Something Went Wrong',
+//             error
+//         });
+//     }
+// }
 
 
-// Delete User
-export const deleteUser = async (req, res) => {
-    try {
-        const { userId } = req.body;
+// // Change Password
+// export const changePassword = async (req, res) => {
+//     try {
+//         const { userId, oldPassword, newPassword } = req.body;
 
-        if (!userId) {
-            return res.status(400).send({
-                success: false,
-                message: "User ID is required"
-            });
-        }
+//         if (!userId || !oldPassword || !newPassword) {
+//             return res.status(400).send({
+//                 success: false,
+//                 message: "Provide All Fields"
+//             });
+//         }
 
-        const user = await userModel.findByIdAndDelete(userId);
+//         const user = await userModel.findById(userId);
 
-        if (!user) {
-            return res.status(404).send({
-                success: false,
-                message: "User Not Found"
-            });
-        }
+//         if (!user) {
+//             return res.status(404).send({
+//                 success: false,
+//                 message: "User Not Found"
+//             });
+//         }
 
-        res.status(200).send({
-            success: true,
-            message: "User Deleted Successfully"
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: 'Something Went Wrong',
-            error
-        });
-    }
-}
+//         // verify old password
+//         const isMatch = await bcrypt.compare(oldPassword, user.password);
+//         if (!isMatch) {
+//             return res.status(401).send({
+//                 success: false,
+//                 message: "Old Password is Incorrect"
+//             });
+//         }
+
+//         // hash new password
+//         const salt = await bcrypt.genSalt(10);
+//         const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+//         user.password = hashedPassword;
+//         await user.save();
+
+//         res.status(200).send({
+//             success: true,
+//             message: "Password Changed Successfully"
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({
+//             success: false,
+//             message: 'Something Went Wrong',
+//             error
+//         });
+//     }
+// }
+
+
+// // Delete User
+// export const deleteUser = async (req, res) => {
+//     try {
+//         const { userId } = req.body;
+
+//         if (!userId) {
+//             return res.status(400).send({
+//                 success: false,
+//                 message: "User ID is required"
+//             });
+//         }
+
+//         const user = await userModel.findByIdAndDelete(userId);
+
+//         if (!user) {
+//             return res.status(404).send({
+//                 success: false,
+//                 message: "User Not Found"
+//             });
+//         }
+
+//         res.status(200).send({
+//             success: true,
+//             message: "User Deleted Successfully"
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({
+//             success: false,
+//             message: 'Something Went Wrong',
+//             error
+//         });
+//     }
+// }
