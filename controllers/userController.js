@@ -42,7 +42,7 @@ export const userRegister = async (req, res) => {
 
 // Login User
 
-export const userLogin = async(req, res) => {
+export const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body
         if (!email || !password) {
@@ -71,7 +71,7 @@ export const userLogin = async(req, res) => {
         }
 
         // token 
-        const token = JWT.sign({id:user?.id}, process.env.JWT_SECRET, {expiresIn:'7d'})
+        const token = JWT.sign({ id: user?.id }, process.env.JWT_SECRET, { expiresIn: '7d' })
         user.password = undefined;
         res.status(200).send({
             success: true,
@@ -90,7 +90,37 @@ export const userLogin = async(req, res) => {
     }
 }
 
-
+// Update user details
+export const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        if (!id) {
+            return res.status(404).send({
+                success: false,
+                message: "User id not found"
+            })
+        }
+        const { name, phone, dob, image, gender, address } = req.body;
+        const photoToBase64 = req.files && req.files.buffer.toString('base64')
+        const user = await userModel.findByIdAndUpdate(id, {
+            $set: { name, phone, dob, gender, address, image: photoToBase64 },
+        }, { returnOriginal: false });
+        
+        res.status(200).send({
+            success: true,
+            message: "Profile update Successfully",
+            user
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Something Went Wrong in Updating user',
+            error
+        });
+    }
+}
 
 // Get User
 // export const getUserProfile = async (req, res) => {
