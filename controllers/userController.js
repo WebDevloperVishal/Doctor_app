@@ -101,7 +101,7 @@ export const updateUser = async (req, res) => {
             })
         }
         const { name, phone, dob, image, gender, address } = req.body;
-        const photoToBase64 = req.files && req.files.buffer.toString('base64')
+        const photoToBase64 = req.file && req.file.buffer.toString('base64')
         const user = await userModel.findByIdAndUpdate(id, {
             $set: { name, phone, dob, gender, address, image: photoToBase64 },
         }, { returnOriginal: false });

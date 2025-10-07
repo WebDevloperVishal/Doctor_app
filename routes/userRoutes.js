@@ -1,5 +1,7 @@
 import express from "express";
-import { userRegister, userLogin } from "../controllers/userController.js";
+import { userRegister, userLogin, updateUser } from "../controllers/userController.js";
+import { userAuth } from "../middlewares/authMiddlerares.js";
+import upload from "../middlewares/multer.js";
 
 // import all controllers
 // import SessionController from './app/controllers/SessionController';
@@ -13,6 +15,11 @@ router.post('/register', userRegister);
 
 // Login //POST
 router.post('/login', userLogin);
+
+// Update Profile || PATCH
+router.patch('/update/:id', userAuth, upload.single("image"), updateUser);
+
+
 
 // router.get('/get-profile', getUserProfile); //Get user profile
 // router.get('/get-user', getAllUsers); //Get all user
