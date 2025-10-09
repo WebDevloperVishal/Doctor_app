@@ -121,6 +121,36 @@ export const updateUser = async (req, res) => {
         });
     }
 }
+// Password reset
+export const updatePassword = async (req,res) =>{
+    try {
+        // user id 
+        const {id} = req.params
+        if(!id){
+            return res.status(404).send({
+                success:false,
+                message:"user id is not correct"
+            })
+        }
+        // req bpdy
+        const {oldPassword,newPassword} = req.body
+        if(!oldPassword || !newPassword){
+            return res.status(500).send({
+                success:false,
+                message:"Please Provide Old And New Password"
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success:false,
+            message:"Error in Update Password",
+            error
+        })
+        
+    }
+} 
+
 
 // Get User
 // export const getUserProfile = async (req, res) => {
