@@ -1,5 +1,5 @@
 import express from "express";
-import { userRegister, userLogin, updateUser } from "../controllers/userController.js";
+import { userRegister, userLogin, updateUser, updatePassword } from "../controllers/userController.js";
 import { userAuth } from "../middlewares/authMiddlerares.js";
 import upload from "../middlewares/multer.js";
 
@@ -18,6 +18,9 @@ router.post('/login', userLogin);
 
 // Update Profile || PATCH
 router.patch('/update/:id', userAuth, upload.single("image"), updateUser);
+
+// Update Password
+router.patch("/update-password/:id",userAuth, updatePassword) 
 
 
 

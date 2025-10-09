@@ -121,35 +121,64 @@ export const updateUser = async (req, res) => {
         });
     }
 }
+
+
 // Password reset
-export const updatePassword = async (req,res) =>{
+export const updatePassword = async (req, res) => {
     try {
         // user id 
-        const {id} = req.params
-        if(!id){
+        const { id } = req.params
+        if (!id) {
             return res.status(404).send({
-                success:false,
-                message:"user id is not correct"
+                success: false,
+                message: "user id is not correct"
             })
         }
-        // req bpdy
-        const {oldPassword,newPassword} = req.body
-        if(!oldPassword || !newPassword){
+        // req body
+        const { oldPassword, newPassword } = req.body
+        if (!oldPassword || !newPassword) {
             return res.status(500).send({
-                success:false,
-                message:"Please Provide Old And New Password"
+                success: false,
+                message: "Please Provide Old And New Password"
             })
         }
+        // find User
+        const user = await userModel.findById(id)
+        if (!user) {
+            return res.status(402).send({
+                success: false,
+                message: "user not found"
+            })
+        }
+        // check old Password
+        const isMatch = await bcrypt.compare(oldPassword, user?.password)
+        if (!isMatch) {
+            return res.status(401).send({
+                success: false,
+                message: "incorrect Old password"
+            })
+        }
+        // hashing
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(newPassword, salt)
+
+        // update
+        user.password = hashedPassword
+        await user.save()
+
+        res.status(200).send({
+            success: true,
+            message: "Password Updated successfully"
+        })
     } catch (error) {
         console.log(error)
         res.status(500).send({
-            success:false,
-            message:"Error in Update Password",
+            success: false,
+            message: "Error in Update Password",
             error
         })
-        
     }
-} 
+}
 
 
 // Get User
