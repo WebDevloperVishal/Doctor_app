@@ -1,4 +1,4 @@
-import webmessageModel from "../models/webMessage";
+import webmessageModel from "../models/webMessage.js";
 
 // create Message
 export const createMessage = async (req , res)=> {

@@ -1,9 +1,9 @@
 import express from "express";
 import { createMessage } from "../controllers/webMessageController.js";
 
-const router = express.Router()
+const routes = express.Router()
 
 // create Message ||POST
-router.post('/create',createMessage)
+routes.post('/create',createMessage)
 
-export default router;
+export default routes;
