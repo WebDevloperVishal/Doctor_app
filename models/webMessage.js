@@ -7,7 +7,7 @@ const webMessageSchema = new mongoose.Schema({
     },
     contact: {
         type: String,
-        required: [true, 'contact no or email is required']  // ✅ fixed
+        required: [true, 'contact no or email is required'] 
     },
     message: {
         type: String,
